@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>Geolocalizacion</title>
+</head>
+<body>
+	<header>
+		<figure>
+			<img src="img/mundo.png" alt="mundo" id="mundo"/>
+		</figure> 
+		<h1>Ejemplo Geolocalización! :)</h1>
+	</header>
+	
+	<section id="contenedor">
+		<article>
+			<figure>
+				<img src="img/FLECHA.png" alt="flecha" id="flecha">
+			</figure>
+
+			<section id="texto">
+				<article>
+					<p id="latitud"></p>
+					<p id="longitud"></p>
+					<p id="donde"></p>
+				</article>
+			</section>
+
+		</article>
+	</section>
+	
+	<footer>
+		<p>Esteban Rojas, Estudiante 8° Semestre Ing. Informatica</p>
+	</footer>
+	
+	<link rel="stylesheet" href="ccs/normalize.css" />
+	<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic' rel='stylesheet' type='text/css' />
+	<link rel="stylesheet" href="css/estilos.css" />
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			navigator.geolocation.getCurrentPosition(function(position) {
+	        	var latitude = position.coords.latitude;
+	        	var longitude = position.coords.longitude;
+
+	        	$.get('http://ws.geonames.org/countryCode', {
+	        		type: "JSON", 
+	            	lat: latitude, 
+	            	lng: longitude
+	          	}, function(data) {
+	            	//alert("Estás en: " + data.countryName);
+	          		$("#latitud").text('Latitud: ' +latitude)
+	          		$("#longitud").text('Longitud: ' +longitude)
+	          		$("#donde").text('Estás en: ' + data.countryName)
+	          	});
+	        });
+		});
+	</script>
+</body>
+</html>
